@@ -31,5 +31,10 @@ public class SlugTema implements Serializable {
         dataCriacao = Instant.now();
     }
 
+    @PreUpdate
+    public void preUpdate() {
+        dataCriacao = Instant.now();
+    }
+
 
 }
