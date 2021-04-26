@@ -1,5 +1,7 @@
 package com.ts.mpdecoracoes.entities.enums;
 
 public enum Modelo {
-    MINI_TABLE, PADRAO;
+
+    MINI_TABLE,
+    PADRAO
 }

@@ -22,12 +22,11 @@ public class Postagem implements Serializable {
     private Long id;
     private String descricaoPostagem;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "slugTema_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "slug_tema_id")
     private SlugTema slugTema;
-
-    private Categoria categoria;
-    private Modelo modelo;
-
+    private String urlImg;
+    private String categoria;
+    private String modelo;
 
 }

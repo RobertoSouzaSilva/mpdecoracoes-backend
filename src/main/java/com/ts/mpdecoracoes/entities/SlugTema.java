@@ -2,7 +2,6 @@ package com.ts.mpdecoracoes.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,11 +9,10 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_slugTema")
+@Table(name = "tb_slug_tema")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude={"slugTemaNome, dataCriacao"})
 public class SlugTema implements Serializable {
     private static final long serialVersionUID = 1L;
 
