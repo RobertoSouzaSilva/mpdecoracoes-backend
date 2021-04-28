@@ -26,10 +26,13 @@ public class PostagemController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
+            @RequestParam(value = "category", defaultValue = "") String categoria,
+            @RequestParam(value = "model", defaultValue = "") String modelo,
+
             @RequestParam(value = "orderBy", defaultValue = "descricaoPostagem") String orderBy) {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<PostagemDTO> posts = postagemService.findAllPaged(pageRequest);
+        Page<PostagemDTO> posts = postagemService.findAllPaged(pageRequest, categoria, modelo);
         return ResponseEntity.ok().body(posts);
     }
 

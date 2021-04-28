@@ -31,9 +31,9 @@ public class PostagemService {
     private SlugTemaRepository slugTemaRepository;
 
     @Transactional(readOnly = true)
-    public Page<PostagemDTO> findAllPaged(PageRequest pageRequest) {
+    public Page<PostagemDTO> findAllPaged(PageRequest pageRequest, String categoria, String modelo) {
 
-        Page<Postagem> posts = postagemRepository.findAll(pageRequest);
+        Page<Postagem> posts = postagemRepository.find(pageRequest, categoria, modelo);
         return posts.map(post -> new PostagemDTO(post));
     }
 
