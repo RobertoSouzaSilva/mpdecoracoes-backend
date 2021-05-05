@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostagemService {
@@ -31,19 +33,19 @@ public class PostagemService {
     private SlugTemaRepository slugTemaRepository;
 
     @Transactional(readOnly = true)
-    public Page<PostagemDTO> findAllPaged(PageRequest pageRequest, String categoria, String modelo) {
+    public Page<PostagemDTO> findAllPaged(PageRequest pageRequest, String categoria, String modelo, String descricao) {
 
-        Page<Postagem> posts = postagemRepository.find(pageRequest, categoria, modelo);
+        Page<Postagem> posts = postagemRepository.find(pageRequest, categoria, modelo, descricao.toLowerCase());
         return posts.map(post -> new PostagemDTO(post));
     }
 
     @Transactional(readOnly = true)
-    public PostagemDTO findBySlugName(String descricao) {
-        Postagem posts = postagemRepository.findBySlug(descricao.toLowerCase());
+    public List<PostagemDTO> findBySlugName(String descricao) {
+        List<Postagem> posts = postagemRepository.findBySlug(descricao.toLowerCase());
         if (posts == null) {
             throw new ConteudoNotFoundException("Post não encontrado");
         }
-        return new PostagemDTO(posts);
+        return posts.stream().map(post -> new PostagemDTO(post)).collect(Collectors.toList());
     }
 
     @Transactional

@@ -13,16 +13,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Repository
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
 
 
     @Query(value = "SELECT * FROM tb_postagem WHERE LOWER(descricao_postagem) LIKE %:descricao%", nativeQuery = true)
-    Postagem findBySlug(@Param("descricao") String descricao);
+    List<Postagem> findBySlug(@Param("descricao") String descricao);
 
-    @Query(value = "SELECT * FROM tb_postagem WHERE categoria LIKE %:categoria% AND modelo LIKE %:modelo%", nativeQuery = true)
-    Page<Postagem> find(Pageable pageRequest, @Param("categoria") String categoria, @Param("modelo") String modelo);
+    @Query(value = "SELECT * FROM tb_postagem WHERE categoria LIKE %:categoria% AND modelo LIKE %:modelo% AND LOWER(descricao_postagem) LIKE %:descricao%", nativeQuery = true)
+    Page<Postagem> find(Pageable pageRequest, @Param("categoria") String categoria, @Param("modelo") String modelo, @Param("descricao") String descricao);
 
 
 }

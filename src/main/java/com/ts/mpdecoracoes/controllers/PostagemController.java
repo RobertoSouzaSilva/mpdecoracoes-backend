@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/postagens")
@@ -28,17 +29,17 @@ public class PostagemController {
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
             @RequestParam(value = "category", defaultValue = "") String categoria,
             @RequestParam(value = "model", defaultValue = "") String modelo,
-
-            @RequestParam(value = "orderBy", defaultValue = "descricaoPostagem") String orderBy) {
+            @RequestParam(value = "description", defaultValue = "") String descricao,
+            @RequestParam(value = "orderBy", defaultValue = "descricao_postagem") String orderBy) {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<PostagemDTO> posts = postagemService.findAllPaged(pageRequest, categoria, modelo);
+        Page<PostagemDTO> posts = postagemService.findAllPaged(pageRequest, categoria, modelo, descricao);
         return ResponseEntity.ok().body(posts);
     }
 
     @GetMapping(value = "/{descricao}")
-    public ResponseEntity<PostagemDTO> findBySlug(@PathVariable String descricao){
-        PostagemDTO posts = postagemService.findBySlugName(descricao);
+    public ResponseEntity<List<PostagemDTO>> findBySlug(@PathVariable String descricao){
+        List<PostagemDTO> posts = postagemService.findBySlugName(descricao);
         return ResponseEntity.ok().body(posts);
     }
 
