@@ -2,6 +2,7 @@ package com.ts.mpdecoracoes.services;
 
 import com.ts.mpdecoracoes.dto.PostagemDTO;
 import com.ts.mpdecoracoes.dto.SlugTemaDTO;
+import com.ts.mpdecoracoes.dto.UriDTO;
 import com.ts.mpdecoracoes.entities.Postagem;
 import com.ts.mpdecoracoes.entities.SlugTema;
 import com.ts.mpdecoracoes.entities.enums.Categoria;
@@ -18,8 +19,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +34,9 @@ public class PostagemService {
 
     @Autowired
     private SlugTemaRepository slugTemaRepository;
+
+    @Autowired
+    private S3Service s3Service;
 
     @Transactional(readOnly = true)
     public Page<PostagemDTO> findAllPaged(PageRequest pageRequest, String categoria, String modelo, String descricao) {
@@ -77,6 +83,11 @@ public class PostagemService {
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Violação de integridade");
         }
+    }
+
+    public UriDTO uploadFile(MultipartFile file) {
+        URL url = s3Service.uploadFile(file);
+        return new UriDTO(url.toString());
     }
 
 

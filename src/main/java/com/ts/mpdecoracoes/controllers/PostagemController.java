@@ -2,7 +2,7 @@ package com.ts.mpdecoracoes.controllers;
 
 import com.ts.mpdecoracoes.dto.PostagemDTO;
 import com.ts.mpdecoracoes.dto.SlugTemaDTO;
-import com.ts.mpdecoracoes.entities.Postagem;
+import com.ts.mpdecoracoes.dto.UriDTO;
 import com.ts.mpdecoracoes.services.PostagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -64,6 +65,12 @@ public class PostagemController {
     public ResponseEntity<SlugTemaDTO> delete(@PathVariable Long id){
         postagemService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(value = "/image")
+    public ResponseEntity<UriDTO> uploadImage(@RequestParam("file") MultipartFile file){
+        UriDTO dto = postagemService.uploadFile(file);
+        return ResponseEntity.ok().body(dto);
     }
 
 }
