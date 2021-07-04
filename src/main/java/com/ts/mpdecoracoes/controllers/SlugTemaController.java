@@ -32,6 +32,12 @@ public class SlugTemaController {
         return ResponseEntity.ok().body(slugs);
     }
 
+    @GetMapping(value = "/allSlugs")
+    public ResponseEntity<List<SlugTemaDTO>> findAll(){
+        List<SlugTemaDTO> slugs = slugTemaService.findAll();
+        return ResponseEntity.ok().body(slugs);
+    }
+
     @GetMapping(value = "/{name}")
     public ResponseEntity<SlugTemaDTO> findBySlugTemaName(@PathVariable String name){
         SlugTemaDTO slug = slugTemaService.findBySlugTemaName(name);

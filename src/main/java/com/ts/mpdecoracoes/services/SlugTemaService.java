@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -27,6 +30,13 @@ public class SlugTemaService {
         Page<SlugTema> slugs = slugTemaRepository.findAll(pageRequest);
         return slugs.map(slug -> new SlugTemaDTO(slug));
     }
+
+    public List<SlugTemaDTO> findAll() {
+        List<SlugTema> slugs = slugTemaRepository.findAll();
+        return slugs.stream().map(slug -> new SlugTemaDTO(slug)).collect(Collectors.toList());
+    }
+
+
 
     @Transactional(readOnly = true)
     public SlugTemaDTO findBySlugTemaName(String name) {
@@ -74,6 +84,6 @@ public class SlugTemaService {
          slug.setDataCriacao(dto.getDataCriacao());
     }
 
-
+  
 
 }
