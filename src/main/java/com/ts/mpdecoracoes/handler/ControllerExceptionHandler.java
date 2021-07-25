@@ -3,6 +3,9 @@ package com.ts.mpdecoracoes.handler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.ts.mpdecoracoes.exceptions.ConteudoNotFoundException;
+import com.ts.mpdecoracoes.exceptions.CredenciaisWrongException;
+import com.ts.mpdecoracoes.exceptions.UsuarioNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -57,6 +60,30 @@ public class ControllerExceptionHandler {
         err.setTimeStamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Bad request");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<StandardError> UsuarioNotFoundd(UsuarioNotFoundException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError();
+        err.setTimeStamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Not Found");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(CredenciaisWrongException.class)
+    public ResponseEntity<StandardError> UsuarioNotFoundd(CredenciaisWrongException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError();
+        err.setTimeStamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Login or Password incorrect");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

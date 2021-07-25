@@ -5,3 +5,4 @@ INSERT INTO "PUBLIC"."TB_POSTAGEM"("CATEGORIA", "DESCRICAO_POSTAGEM", "MODELO", 
 INSERT INTO "PUBLIC"."TB_POSTAGEM"("CATEGORIA", "DESCRICAO_POSTAGEM", "MODELO", "SLUG_TEMA_ID", "URL_IMG")VALUES('INFANTIL', 'Festa Mickey - 2021', 'PADRAO', 1, 'https://diariodonordeste.verdesmares.com.br/image/contentid/policy:1.2175152:1590247384/buffet-decorado-para-festa-infantil.jpg?f=16x9&h=720&q=0.8&w=1280&$p$f$h$q$w=032176e')
 
 
+INSERT INTO "PUBLIC"."TB_REGRA"("REGRA") VALUES('USER');

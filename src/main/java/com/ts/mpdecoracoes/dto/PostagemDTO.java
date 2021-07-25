@@ -1,17 +1,12 @@
 package com.ts.mpdecoracoes.dto;
 
+import java.io.Serializable;
+
 import com.ts.mpdecoracoes.entities.Postagem;
-import com.ts.mpdecoracoes.entities.SlugTema;
-import com.ts.mpdecoracoes.entities.enums.Categoria;
-import com.ts.mpdecoracoes.entities.enums.Modelo;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
