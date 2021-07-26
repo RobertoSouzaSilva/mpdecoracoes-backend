@@ -44,13 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
         .antMatchers(HttpMethod.POST, "/login").permitAll()
         .antMatchers(HttpMethod.GET, "/postagens/**").permitAll()
+        .antMatchers(HttpMethod.GET, "/temas/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .httpBasic()
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
-        .csrf().disable();
+        .cors().and().csrf().disable();
     }
     
     @Bean
