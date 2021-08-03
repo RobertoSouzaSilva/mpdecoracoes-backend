@@ -59,10 +59,11 @@ public class UsuarioService implements UserDetailsService {
 
 	
 	@Transactional
-	public UsuarioDTO update(Long id, UsuarioDTO dto) {
+	public UsuarioDTO update(Long id, UsuarioInsertDTO dto) {
 		try {
 		Usuario usuario = usuarioRepository.getOne(id);
 		copyDtoToEntity(dto, usuario);
+		usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
 		List<Regra> regra = regraRepository.findAll();
 		usuario.setRegras(regra);
 		usuario = usuarioRepository.save(usuario);
@@ -84,7 +85,7 @@ public class UsuarioService implements UserDetailsService {
 	
 	private void copyDtoToEntity(UsuarioDTO dto, Usuario usuario) {
 		usuario.setLogin(dto.getLogin());
-
+		usuario.setNome(dto.getNome());
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class AutenticacaoService {
         TokenDTO token = new TokenDTO();
         if(isPassOk == true){
             token.setToken(toBase64(usuarioCredenciado.getLogin() + ":" + senha));
+            token.setNome(usuarioCredenciado.getNome());
         } else {
             throw new CredenciaisWrongException("Usuário ou senha incorretos!");
         }

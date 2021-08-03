@@ -16,10 +16,12 @@ public class UsuarioDTO implements Serializable {
 
     private Long id;
     private String login;
+	private String nome;
 
     public UsuarioDTO(Usuario usuario) {
 		this.id = usuario.getId();
 		this.login = usuario.getLogin();
+		this.nome = usuario.getNome();
 	}
     
 }

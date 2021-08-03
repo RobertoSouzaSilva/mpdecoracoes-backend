@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenDTO implements Serializable {
+public class RecuperaSenhaDTO implements Serializable {
 
-    private String token;
-    private String nome;
+    private String email;
     
 }
