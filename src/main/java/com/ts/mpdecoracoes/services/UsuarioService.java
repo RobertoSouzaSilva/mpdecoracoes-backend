@@ -61,22 +61,22 @@ public class UsuarioService implements UserDetailsService {
 		try {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 
-		if(StringUtils.isEmpty(dto.getLogin())){
+		if(!StringUtils.isEmpty(dto.getLogin())){
 			usuario.get().setLogin(dto.getLogin());
 		} else {
 			usuario.get().setLogin(usuario.get().getLogin());
 		}
-		if(StringUtils.isEmpty(dto.getNome())){
+		if(!StringUtils.isEmpty(dto.getNome())){
 			usuario.get().setNome(dto.getNome());
 		}else {
 			usuario.get().setNome(usuario.get().getNome());
 		}
-		if(StringUtils.isEmpty(dto.getSenha())){
+		if(!StringUtils.isEmpty(dto.getSenha())){
 			usuario.get().setSenha(passwordEncoder.encode(dto.getSenha()));
 		}else {
 			usuario.get().setSenha(usuario.get().getSenha());
 		}
-		if(StringUtils.isEmpty(dto.getUrlImg())){
+		if(!StringUtils.isEmpty(dto.getUrlImg())){
 			usuario.get().setUrlImg(dto.getUrlImg());
 		}else {
 			usuario.get().setUrlImg(usuario.get().getUrlImg());
