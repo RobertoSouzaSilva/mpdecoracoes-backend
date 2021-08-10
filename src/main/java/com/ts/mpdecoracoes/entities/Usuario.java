@@ -38,6 +38,8 @@ public class Usuario implements Serializable, UserDetails{
     private String login;
     private String senha;
     private String nome;
+    private String urlImg;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_usuario_regra", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "regra_id"))

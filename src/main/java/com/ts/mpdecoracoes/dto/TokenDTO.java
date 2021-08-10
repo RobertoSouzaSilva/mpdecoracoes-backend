@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TokenDTO implements Serializable {
 
+    private Long id;
     private String token;
     private String nome;
+    private String email;
+    private String urlImg;
     
 }

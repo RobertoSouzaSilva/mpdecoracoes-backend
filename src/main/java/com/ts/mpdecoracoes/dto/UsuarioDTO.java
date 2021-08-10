@@ -17,11 +17,13 @@ public class UsuarioDTO implements Serializable {
     private Long id;
     private String login;
 	private String nome;
+	private String urlImg;
 
     public UsuarioDTO(Usuario usuario) {
 		this.id = usuario.getId();
 		this.login = usuario.getLogin();
 		this.nome = usuario.getNome();
+		this.urlImg = usuario.getUrlImg();
 	}
     
 }

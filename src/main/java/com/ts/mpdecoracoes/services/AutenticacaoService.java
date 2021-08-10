@@ -1,7 +1,6 @@
 package com.ts.mpdecoracoes.services;
 
 import java.util.Base64;
-import java.util.Optional;
 
 import com.ts.mpdecoracoes.dto.TokenDTO;
 import com.ts.mpdecoracoes.entities.Usuario;
@@ -32,6 +31,9 @@ public class AutenticacaoService {
         if(isPassOk == true){
             token.setToken(toBase64(usuarioCredenciado.getLogin() + ":" + senha));
             token.setNome(usuarioCredenciado.getNome());
+            token.setEmail(usuarioCredenciado.getLogin());
+            token.setUrlImg(usuarioCredenciado.getUrlImg());
+            token.setId(usuarioCredenciado.getId());
         } else {
             throw new CredenciaisWrongException("Usuário ou senha incorretos!");
         }

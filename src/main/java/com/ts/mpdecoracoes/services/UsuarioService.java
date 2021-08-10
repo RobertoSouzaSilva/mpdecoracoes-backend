@@ -13,8 +13,8 @@ import com.ts.mpdecoracoes.exceptions.UsuarioNotFoundException;
 import com.ts.mpdecoracoes.repositories.RegraRepository;
 import com.ts.mpdecoracoes.repositories.UsuarioRepository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,18 +56,35 @@ public class UsuarioService implements UserDetailsService {
 		return new UsuarioDTO(usuario);
 	}
 	
-
-	
 	@Transactional
 	public UsuarioDTO update(Long id, UsuarioInsertDTO dto) {
 		try {
-		Usuario usuario = usuarioRepository.getOne(id);
-		copyDtoToEntity(dto, usuario);
-		usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+		if(StringUtils.isEmpty(dto.getLogin())){
+			usuario.get().setLogin(dto.getLogin());
+		} else {
+			usuario.get().setLogin(usuario.get().getLogin());
+		}
+		if(StringUtils.isEmpty(dto.getNome())){
+			usuario.get().setNome(dto.getNome());
+		}else {
+			usuario.get().setNome(usuario.get().getNome());
+		}
+		if(StringUtils.isEmpty(dto.getSenha())){
+			usuario.get().setSenha(passwordEncoder.encode(dto.getSenha()));
+		}else {
+			usuario.get().setSenha(usuario.get().getSenha());
+		}
+		if(StringUtils.isEmpty(dto.getUrlImg())){
+			usuario.get().setUrlImg(dto.getUrlImg());
+		}else {
+			usuario.get().setUrlImg(usuario.get().getUrlImg());
+		}
 		List<Regra> regra = regraRepository.findAll();
-		usuario.setRegras(regra);
-		usuario = usuarioRepository.save(usuario);
-		return new UsuarioDTO(usuario);
+		usuario.get().setRegras(regra);
+		Usuario usuarioSalvo = usuarioRepository.save(usuario.get());
+		return new UsuarioDTO(usuarioSalvo);
 		} catch(EntityNotFoundException e ) {
 			throw new UsuarioNotFoundException("Id não encontrado " + id);
 		}
@@ -86,6 +103,7 @@ public class UsuarioService implements UserDetailsService {
 	private void copyDtoToEntity(UsuarioDTO dto, Usuario usuario) {
 		usuario.setLogin(dto.getLogin());
 		usuario.setNome(dto.getNome());
+		usuario.setUrlImg(dto.getUrlImg());
 	}
 
 	@Override

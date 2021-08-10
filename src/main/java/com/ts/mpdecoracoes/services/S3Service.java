@@ -1,15 +1,16 @@
 package com.ts.mpdecoracoes.services;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 @Service
 public class S3Service {

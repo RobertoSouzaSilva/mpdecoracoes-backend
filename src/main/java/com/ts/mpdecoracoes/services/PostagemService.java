@@ -1,7 +1,12 @@
 package com.ts.mpdecoracoes.services;
 
+import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
+
 import com.ts.mpdecoracoes.dto.PostagemDTO;
-import com.ts.mpdecoracoes.dto.SlugTemaDTO;
 import com.ts.mpdecoracoes.dto.UriDTO;
 import com.ts.mpdecoracoes.entities.Postagem;
 import com.ts.mpdecoracoes.entities.SlugTema;
@@ -11,6 +16,7 @@ import com.ts.mpdecoracoes.exceptions.ConteudoNotFoundException;
 import com.ts.mpdecoracoes.exceptions.DatabaseException;
 import com.ts.mpdecoracoes.repositories.PostagemRepository;
 import com.ts.mpdecoracoes.repositories.SlugTemaRepository;
+
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,11 +26,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityNotFoundException;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PostagemService {
