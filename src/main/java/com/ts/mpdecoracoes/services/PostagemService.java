@@ -43,16 +43,16 @@ public class PostagemService {
     public Page<PostagemDTO> findAllPaged(PageRequest pageRequest, String categoria, String modelo, String descricao) {
 
         Page<Postagem> posts = postagemRepository.find(pageRequest, categoria, modelo, descricao.toLowerCase());
-        return posts.map(post -> new PostagemDTO(post));
+        return posts.map(PostagemDTO::new);
     }
 
     @Transactional(readOnly = true)
     public List<PostagemDTO> findBySlugName(String descricao) {
         List<Postagem> posts = postagemRepository.findBySlug(descricao.toLowerCase());
-        if (posts == null) {
+        if (posts.isEmpty()) {
             throw new ConteudoNotFoundException("Post não encontrado");
         }
-        return posts.stream().map(post -> new PostagemDTO(post)).collect(Collectors.toList());
+        return posts.stream().map(PostagemDTO::new).collect(Collectors.toList());
     }
 
     @Transactional

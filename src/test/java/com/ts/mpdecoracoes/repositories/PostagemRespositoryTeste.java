@@ -24,8 +24,6 @@ public class PostagemRespositoryTeste {
     private PostagemRepository postagemRepository;
     private PageRequest page;
 
-
-
     @BeforeAll
 	void setUp(){
         page =  PageRequest.of(0, 10);
